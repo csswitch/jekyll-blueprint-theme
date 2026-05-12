@@ -1,0 +1,37 @@
+title: "Blueprint Docs"
+description: "Technical documentation and engineering notes"
+url: "https://csswitch.github.io"
+baseurl: "/jekyll-blueprint-theme"
+author:
+  name: "Engineer One"
+  email: "engineer@example.com"
+
+# Blueprint Theme Configuration
+blueprint:
+  grid: "fine"        # fine | coarse | none — background grid density
+  fold_marks: true    # engineering drawing fold-corner marks
+  revision_block: true # technical drawing revision block in footer
+  line_weight: "normal" # light | normal | heavy — border thickness
+
+paginate: 6
+paginate_path: "/page:num/"
+
+plugins:
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+permalink: /:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md

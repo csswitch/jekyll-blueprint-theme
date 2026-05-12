@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'en' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
+
+  <!-- Share Tech Mono + IBM Plex Sans + IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {% seo %}
+  <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | relative_url }}">
+</head>
+<body>
+
+  <!-- Blueprint grid -->
+  <div class="bp-grid" aria-hidden="true"></div>
+
+  <!-- Engineering fold marks -->
+  {% if site.blueprint.fold_marks != false %}
+  <div class="bp-fold-marks" aria-hidden="true"></div>
+  {% endif %}
+
+  <!-- Reading progress -->
+  {% if page.layout == 'post' %}
+  <div class="bp-progress" role="progressbar" aria-label="Reading progress"></div>
+  {% endif %}
+
+  <!-- Nav -->
+  <nav class="bp-nav" role="navigation" aria-label="Main navigation">
+    <div class="bp-nav__inner">
+      <a href="{{ '/' | relative_url }}" class="bp-nav__logo">{{ site.title }}</a>
+      <button class="bp-nav__toggle" aria-controls="main-menu" aria-expanded="false">MENU</button>
+      <ul class="bp-nav__links" id="main-menu">
+        <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>HOME</a></li>
+        <li><a href="{{ '/archive' | relative_url }}" {% if page.url contains 'archive' %}class="active"{% endif %}>ARCHIVE</a></li>
+        <li><a href="{{ '/tags' | relative_url }}" {% if page.url contains 'tags' %}class="active"{% endif %}>TAGS</a></li>
+        <li><a href="{{ '/about' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>ABOUT</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main id="main-content">
+    {{ content }}
+  </main>
+
+  <!-- Footer / Revision Block -->
+  <footer class="bp-footer" role="contentinfo">
+    {% if site.blueprint.revision_block != false %}
+    <div class="bp-footer__revision-block">
+      <span class="bp-footer__brand">{{ site.title }}</span>
+      <div class="bp-footer__meta">
+        <span>DRAWN BY: {{ site.author.name }}</span>
+        <span>THEME: Blueprint v1.0 by csswitch</span>
+        <span>DATE: {{ 'now' | date: "%Y-%m-%d" }}</span>
+      </div>
+    </div>
+    {% endif %}
+    <ul class="bp-footer__links">
+      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+      <li><a href="{{ '/sitemap.xml' | relative_url }}">SITEMAP</a></li>
+      {% if site.author.email %}<li><a href="mailto:{{ site.author.email }}">CONTACT</a></li>{% endif %}
+      <li><a href="https://github.com/csswitch/jekyll-blueprint-theme">THEME</a></li>
+    </ul>
+  </footer>
+
+  <script src="{{ '/assets/js/blueprint.js' | relative_url }}"></script>
+</body>
+</html>

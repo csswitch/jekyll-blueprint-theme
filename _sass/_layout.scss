@@ -1,0 +1,228 @@
+// ============================================================
+// BLUEPRINT THEME — Layout
+// ============================================================
+@import 'variables';
+
+// --- Reading Progress ---
+.bp-progress {
+  position: fixed;
+  top: $nav-h;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: $color-accent;
+  z-index: 300;
+  transition: width 0.1s linear;
+}
+
+// --- Nav ---
+.bp-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: $nav-h;
+  background: rgba($bp-navy, 0.96);
+  border-bottom: $border-accent;
+  backdrop-filter: blur(8px);
+
+  &__inner {
+    max-width: $max-w;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 $sp-3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-family: $font-title;
+    font-size: $fs-sm;
+    color: $color-accent;
+    text-decoration: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: $sp-1;
+
+    // Technical drawing bracket notation
+    &::before { content: '[ '; color: $color-dim; }
+    &::after  { content: ' ]'; color: $color-dim; }
+  }
+
+  &__links {
+    display: flex;
+    gap: $sp-3;
+    list-style: none;
+
+    a {
+      font-family: $font-title;
+      font-size: $fs-xs;
+      color: $color-dim;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      border: none;
+      transition: color 0.2s;
+      &:hover, &.active { color: $color-accent; }
+    }
+  }
+
+  &__toggle {
+    display: none;
+    background: none;
+    border: $border-thin;
+    color: $color-accent;
+    padding: 6px 12px;
+    font-family: $font-title;
+    font-size: $fs-xs;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    &__links {
+      display: none;
+      position: absolute;
+      top: $nav-h;
+      left: 0; right: 0;
+      background: $bp-navy;
+      border-bottom: $border-accent;
+      flex-direction: column;
+      padding: $sp-2 $sp-3 $sp-3;
+      gap: $sp-2;
+      &.open { display: flex; }
+    }
+    &__toggle { display: block; }
+  }
+}
+
+// --- Page Wrapper ---
+.bp-wrapper {
+  max-width: $max-w;
+  margin: 0 auto;
+  padding: $sp-4 $sp-3;
+}
+
+// --- Section title ---
+.section-title {
+  font-family: $font-title;
+  font-size: $fs-sm;
+  color: $color-accent;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: $sp-3;
+  padding-bottom: $sp-1;
+  border-bottom: $border-accent;
+  display: flex;
+  align-items: center;
+  gap: $sp-2;
+
+  // Technical drawing section marker
+  &::before {
+    content: '§';
+    color: $color-annotation;
+    font-size: $fs-md;
+  }
+
+  &__count {
+    font-size: $fs-xs;
+    background: $bp-blue;
+    border: $border-thin;
+    padding: 2px 8px;
+    color: $color-dim;
+    margin-left: auto;
+  }
+}
+
+// --- Footer / Revision Block ---
+.bp-footer {
+  border-top: $border-normal;
+  margin-top: $sp-8;
+
+  &__revision-block {
+    // Technical drawing title/revision block at bottom right
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: $sp-3;
+    padding: $sp-3;
+    max-width: $max-w;
+    margin: 0 auto;
+    align-items: center;
+
+    @media (max-width: 640px) { grid-template-columns: 1fr; }
+  }
+
+  &__brand {
+    font-family: $font-title;
+    font-size: $fs-sm;
+    color: $color-accent;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &__meta {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span { display: block; }
+  }
+
+  &__links {
+    display: flex;
+    gap: $sp-3;
+    list-style: none;
+    padding: $sp-2 $sp-3;
+    border-top: $border-thin;
+    max-width: $max-w;
+    margin: 0 auto;
+
+    a {
+      font-family: $font-title;
+      font-size: $fs-xs;
+      color: $color-dim;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      &:hover { color: $color-accent; }
+    }
+  }
+}
+
+// --- Archive styles ---
+.archive-year {
+  margin-bottom: $sp-4;
+  &__heading {
+    font-family: $font-title;
+    font-size: $fs-sm;
+    color: $color-accent;
+    text-transform: uppercase;
+    border-bottom: $border-thin;
+    padding-bottom: $sp-1;
+    margin-bottom: $sp-2;
+    letter-spacing: 0.1em;
+  }
+  &__list { list-style: none; }
+  &__date {
+    font-family: $font-mono;
+    font-size: $fs-xs;
+    color: $color-dim;
+    display: inline-block;
+    min-width: 80px;
+  }
+  &__link {
+    font-family: $font-body;
+    font-size: $fs-sm;
+    color: $color-text;
+    border: none;
+    &:hover { color: $color-accent; }
+  }
+}

@@ -1,0 +1,196 @@
+// ============================================================
+// BLUEPRINT THEME — Base Styles
+// ============================================================
+@import 'variables';
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-body;
+  font-size: $fs-base;
+  line-height: $lh-normal;
+  min-height: 100vh;
+}
+
+// --- Blueprint grid background ---
+.bp-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: $color-bg;
+  background-image:
+    // Fine grid lines
+    linear-gradient(rgba($bp-line, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($bp-line, 0.35) 1px, transparent 1px),
+    // Major grid lines (every 5 cells)
+    linear-gradient(rgba($bp-line, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($bp-line, 0.6) 1px, transparent 1px);
+  background-size:
+    $grid-fine $grid-fine,
+    $grid-fine $grid-fine,
+    ($grid-fine * 5) ($grid-fine * 5),
+    ($grid-fine * 5) ($grid-fine * 5);
+}
+
+// --- Fold marks (engineering drawing corner marks) ---
+.bp-fold-marks {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  // Top-left
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 32px; height: 32px;
+    border-right: 1px solid rgba($bp-cyan, 0.3);
+    border-bottom: 1px solid rgba($bp-cyan, 0.3);
+  }
+  // Bottom-right
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 32px; height: 32px;
+    border-left: 1px solid rgba($bp-cyan, 0.3);
+    border-top: 1px solid rgba($bp-cyan, 0.3);
+  }
+}
+
+// --- Typography ---
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-title;
+  color: $color-accent;
+  line-height: $lh-tight;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: $sp-2;
+}
+
+h1 { font-size: $fs-2xl; }
+h2 { font-size: $fs-xl; }
+h3 { font-size: $fs-lg; }
+h4 { font-size: $fs-md; }
+
+p {
+  margin-bottom: $sp-2;
+  color: $color-text;
+}
+
+a {
+  color: $color-accent;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba($color-accent, 0.4);
+  transition: color 0.2s, border-color 0.2s;
+  &:hover {
+    color: lighten($bp-cyan, 15%);
+    border-color: $color-accent;
+  }
+}
+
+// --- Code ---
+code, pre {
+  font-family: $font-mono;
+  font-size: $fs-sm;
+}
+
+code {
+  background: $bp-blue;
+  color: $bp-green;
+  padding: 2px 6px;
+  border: $border-thin;
+  border-radius: 0; // sharp edges = technical
+}
+
+pre {
+  @include drawing-box($bp-blue);
+  padding: $sp-3;
+  overflow-x: auto;
+  margin-bottom: $sp-3;
+
+  // Drawing title annotation
+  &::before {
+    content: '// CODE SPECIFICATION';
+    display: block;
+    font-family: $font-title;
+    font-size: $fs-xs;
+    color: $color-annotation;
+    margin-bottom: $sp-1;
+    letter-spacing: 0.1em;
+  }
+
+  code { background: transparent; border: none; color: $bp-green; padding: 0; }
+}
+
+// --- Tables ---
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: $font-mono;
+  font-size: $fs-sm;
+  margin-bottom: $sp-3;
+  border: $border-normal;
+}
+th {
+  background: $bp-blue;
+  color: $color-accent;
+  font-family: $font-title;
+  font-size: $fs-xs;
+  padding: $sp-1 $sp-2;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: $border-accent;
+}
+td {
+  padding: $sp-1 $sp-2;
+  border-bottom: $border-thin;
+  color: $color-text;
+}
+
+// --- Blockquote (callout annotation) ---
+blockquote {
+  border-left: 3px solid $color-annotation;
+  padding: $sp-2 $sp-3;
+  margin: $sp-3 0;
+  background: rgba($bp-annotate, 0.06);
+  position: relative;
+
+  &::before {
+    content: 'NOTE:';
+    font-family: $font-title;
+    font-size: $fs-xs;
+    color: $color-annotation;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  p { color: rgba($color-text, 0.8); margin: 0; }
+}
+
+hr {
+  border: none;
+  border-top: $border-thin;
+  margin: $sp-4 0;
+}
+
+img {
+  max-width: 100%;
+  border: $border-normal;
+}
+
+::selection { background: $color-accent; color: $color-bg; }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: $color-bg; }
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+  &:hover { background: $color-accent; }
+}

@@ -1,0 +1,59 @@
+---
+layout: default
+---
+
+<div class="bp-wrapper">
+  <article>
+    <header class="post-header">
+      <div class="post-header__tags">
+        {% for tag in page.tags %}
+        <a href="{{ '/tags#' | append: tag | slugify | relative_url }}" class="tag-chip">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      <h1 class="post-header__title">{{ page.title }}</h1>
+      <div class="post-header__meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+        <span>{{ content | number_of_words }} WORDS</span>
+        {% if page.author %}<span>BY: {{ page.author }}</span>{% endif %}
+      </div>
+    </header>
+
+    {% assign headings = content | split: '<h' %}
+    {% if headings.size > 2 %}
+    <nav class="post-toc" aria-label="Table of contents">
+      <p class="post-toc__title">TABLE OF CONTENTS</p>
+      <ol>
+        {% for section in headings %}
+        {% if section contains 'id="' %}
+        {% assign id_part = section | split: 'id="' | last | split: '"' | first %}
+        {% assign text_part = section | split: '>' | last | split: '<' | first | strip_html %}
+        {% if text_part != '' and id_part != '' %}
+        <li><a href="#{{ id_part }}">{{ text_part }}</a></li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+      </ol>
+    </nav>
+    {% endif %}
+
+    <div class="post-body">
+      {{ content }}
+    </div>
+  </article>
+
+  <nav class="post-nav" aria-label="Post navigation">
+    {% if page.previous.url %}
+    <a href="{{ page.previous.url | relative_url }}" class="post-nav__item">
+      <span class="post-nav__dir">← PREV SPEC</span>
+      <span class="post-nav__title">{{ page.previous.title }}</span>
+    </a>
+    {% else %}<div></div>{% endif %}
+
+    {% if page.next.url %}
+    <a href="{{ page.next.url | relative_url }}" class="post-nav__item post-nav__next">
+      <span class="post-nav__dir">NEXT SPEC →</span>
+      <span class="post-nav__title">{{ page.next.title }}</span>
+    </a>
+    {% else %}<div></div>{% endif %}
+  </nav>
+</div>
